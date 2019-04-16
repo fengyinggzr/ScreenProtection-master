@@ -184,7 +184,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 	//处理善后工作 
 	
 	case WM_LBUTTONDOWN:
-		ret = CreateProcessA("G:\\ScreenProtection-master\\TestScreen\\TestScreen.exe",
+		ret = CreateProcessA("..\\TestScreen\\TestScreen.exe",
 			NULL,
 			NULL,
 			NULL,
