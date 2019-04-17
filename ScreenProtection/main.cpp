@@ -142,12 +142,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 	static HWND taskBar = FindWindow(TEXT("Shell_TrayWnd"), NULL);
 
 	PROCESS_INFORMATION pi;
-	STARTUPINFOA si;
+	STARTUPINFO si;
 	memset(&si, 0, sizeof(si));
 	si.cb = sizeof(si);
 	si.wShowWindow = SW_SHOW;
-//	si.dwFlags = STARTF_USESHOWWINDOW;
+	si.dwFlags = STARTF_USESHOWWINDOW;
 
+
+	//TCHAR szPath[] = _T("c:\\program files\\internet explorer\\iexplore.exe");
 //	LPTSTR szCmdline = _tcsdup(TEXT("C:\\Program Files\\MyApp -L -S"));
 	bool ret;
 	unsigned long result;
@@ -184,7 +186,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 	//处理善后工作 
 	
 	case WM_LBUTTONDOWN:
-		ret = CreateProcessA("..\\TestScreen\\TestScreen.exe",
+		ret = CreateProcess(TEXT("..\\TestScreen\\TestScreen.exe"),
 			NULL,
 			NULL,
 			NULL,
