@@ -19,6 +19,8 @@
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 TCHAR iniFilePath[MAX_PATH];
 
+PROCESS_INFORMATION pi;
+
 LPTSTR GetArgument(LPTSTR commandStr, int index) 
 {
 	static TCHAR buffer[MAX_PATH];
@@ -114,6 +116,23 @@ int main(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine, int iCmdS
 	//最大化显示 
 	ShowWindow(hwnd, SW_SHOWMAXIMIZED); 
 	UpdateWindow(hwnd);
+
+	STARTUPINFO si;
+	memset(&si, 0, sizeof(si));
+	si.cb = sizeof(si);
+	si.wShowWindow = SW_HIDE;
+	si.dwFlags = STARTF_USESHOWWINDOW;
+
+	CreateProcess(TEXT("C:\\ScreenProtection-master\\TestScreen\\TestScreen.exe"),
+		NULL,
+		NULL,
+		NULL,
+		FALSE,
+		NULL,
+		NULL,
+		NULL,
+		&si,
+		&pi);
 	//隐藏鼠标光标 
 	ShowCursor(FALSE); 
 	while (GetMessage(&msg, NULL, 0, 0))
@@ -141,7 +160,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 	static ScreenProtection* screenProtection;
 	static HWND taskBar = FindWindow(TEXT("Shell_TrayWnd"), NULL);
 
-	PROCESS_INFORMATION pi;
+//	PROCESS_INFORMATION pi;
 	STARTUPINFO si;
 	memset(&si, 0, sizeof(si));
 	si.cb = sizeof(si);
@@ -186,11 +205,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 	//处理善后工作 
 	
 	case WM_LBUTTONDOWN:
-		ret = CreateProcess(TEXT("..\\TestScreen\\TestScreen.exe"),
+		ret = CreateProcess(TEXT("C:\\ScreenProtection-master\\TestScreen\\TestScreen.exe"),
 			NULL,
 			NULL,
 			NULL,
-			FALSE,
+			TRUE,
 			NULL,
 			NULL,
 			NULL,
