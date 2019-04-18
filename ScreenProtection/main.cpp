@@ -123,7 +123,7 @@ int main(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine, int iCmdS
 	si.wShowWindow = SW_HIDE;
 	si.dwFlags = STARTF_USESHOWWINDOW;
 
-	CreateProcess(TEXT("C:\\ScreenProtection-master\\TestScreen\\TestScreen.exe"),
+	CreateProcess(TEXT("C:\\TestScreen\\TestScreen.exe"),
 		NULL,
 		NULL,
 		NULL,
@@ -205,7 +205,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 	//处理善后工作 
 	
 	case WM_LBUTTONDOWN:
-		ret = CreateProcess(TEXT("C:\\ScreenProtection-master\\TestScreen\\TestScreen.exe"),
+		ret = CreateProcess(TEXT("C:\\TestScreen\\TestScreen.exe"),
 			NULL,
 			NULL,
 			NULL,
