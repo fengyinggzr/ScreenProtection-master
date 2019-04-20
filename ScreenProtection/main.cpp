@@ -19,7 +19,7 @@
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 TCHAR iniFilePath[MAX_PATH];
 
-PROCESS_INFORMATION pi;
+//PROCESS_INFORMATION pi;
 
 LPTSTR GetArgument(LPTSTR commandStr, int index) 
 {
@@ -106,6 +106,23 @@ int main(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine, int iCmdS
 		return 0;
 	}
 
+/*	STARTUPINFO si;
+	memset(&si, 0, sizeof(si));
+	si.cb = sizeof(si);
+	si.wShowWindow = SW_SHOW;
+	si.dwFlags = STARTF_USESHOWWINDOW;
+
+	CreateProcess(TEXT("C:\\TestScreen\\TestScreen.exe"),
+		NULL,
+		NULL,
+		NULL,
+		TRUE,
+		NULL,
+		NULL,
+		NULL,
+		&si,
+		&pi);
+*/
 	hwnd = CreateWindow(szAppName, NULL,
 		WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_POPUP,
 		0, 0,
@@ -113,26 +130,12 @@ int main(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine, int iCmdS
 		NULL, NULL, hInstance,
 		NULL);
 
+
+	
 	//最大化显示 
 	ShowWindow(hwnd, SW_SHOWMAXIMIZED); 
 	UpdateWindow(hwnd);
 
-	STARTUPINFO si;
-	memset(&si, 0, sizeof(si));
-	si.cb = sizeof(si);
-	si.wShowWindow = SW_HIDE;
-	si.dwFlags = STARTF_USESHOWWINDOW;
-
-	CreateProcess(TEXT("C:\\TestScreen\\TestScreen.exe"),
-		NULL,
-		NULL,
-		NULL,
-		FALSE,
-		NULL,
-		NULL,
-		NULL,
-		&si,
-		&pi);
 	//隐藏鼠标光标 
 	ShowCursor(FALSE); 
 	while (GetMessage(&msg, NULL, 0, 0))
@@ -160,13 +163,12 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 	static ScreenProtection* screenProtection;
 	static HWND taskBar = FindWindow(TEXT("Shell_TrayWnd"), NULL);
 
-//	PROCESS_INFORMATION pi;
+	PROCESS_INFORMATION pi;
 	STARTUPINFO si;
 	memset(&si, 0, sizeof(si));
 	si.cb = sizeof(si);
 	si.wShowWindow = SW_SHOW;
-	si.dwFlags = STARTF_USESHOWWINDOW;
-
+	si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USEPOSITION;
 
 	//TCHAR szPath[] = _T("c:\\program files\\internet explorer\\iexplore.exe");
 //	LPTSTR szCmdline = _tcsdup(TEXT("C:\\Program Files\\MyApp -L -S"));
